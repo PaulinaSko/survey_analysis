@@ -1,8 +1,3 @@
-/* styles.css */
-
-/* Reset CSS */
-
-
 html {
 
     font-size: 100%;
@@ -45,7 +40,7 @@ header {
 }
 
 header.survey-header .header-content {
-    justify-content: flex-start; /* Left-aligned for survey-header */
+    justify-content: flex-start;
 }
 
 h1 {
@@ -61,11 +56,11 @@ nav a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    margin-left: 15px; /* Adjust the space between each link */
+    margin-left: 15px;
 }
 
 nav a:first-child {
-    margin-left: 0; /* Remove left margin for the first link */
+    margin-left: 0;
 }
 
 nav a:hover {
@@ -79,7 +74,7 @@ nav a:hover {
 }
 
 header ul {
-    list-style-type: none; /* Remove default list styling */
+    list-style-type: none;
     display: flex;
     padding: 0;
     margin-top: 10px;
@@ -162,8 +157,8 @@ ol li {
 
 .single-chart-container {
     display: flex;
-    justify-content: center; /* Horizontally center the single chart */
-    align-items: center; /* Vertically center the single chart */
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -171,10 +166,10 @@ ol li {
 .chart {
     flex: 1;
     margin: 10px;
-    text-align: center; /* Center the content horizontally */
+    text-align: center;
     padding: 20px;
     min-width: 300px;
-    max-width: 175%; /* Set maximum width to 200% */
+    max-width: 175%;
 }
 
 .chart img {
@@ -185,9 +180,9 @@ ol li {
 footer {
     width: 100%;
     background-color: #f8f8f8;
-    padding: 5px 0; /* Reduced padding */
+    padding: 5px 0;
     text-align: center;
-    font-size: 12px; /* Smaller font size */
+    font-size: 12px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -195,8 +190,8 @@ footer {
 }
 
 footer p {
-    font-size: 12px; /* Smaller font size for <p> elements in footer */
-    margin: 5px 0; /* Adjust margin for footer paragraphs if needed */
+    font-size: 12px;
+    margin: 5px 0;
     bottom: 0;
     z-index: 1000;
 }
