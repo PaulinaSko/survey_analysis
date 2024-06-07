@@ -6,6 +6,11 @@ import base64
 from django.shortcuts import render
 from io import BytesIO
 
+data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
+data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
+num_rows = 64441
+data23_limited = data2023.head(num_rows)
+
 
 def used_tech(request):
     return render(request, 'survey/tech.html')
@@ -34,12 +39,7 @@ def survey_results(request):
 
 
 def load_csv_file1():
-    # loading data
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     data2020['Age'].fillna(-1, inplace=True)
-
-    # preparing data from 2020
 
     col = 'Age'
     conditions = [
@@ -64,25 +64,14 @@ def load_csv_file1():
     ]
     data2020['age_cat'] = np.select(conditions, choices)
 
-    # Convert 'age_cat' to a categorical type to maintain the order
     data2020['age_cat'] = pd.Categorical(data2020['age_cat'], categories=choices, ordered=False)
 
-    # Calculate value counts and reindex to ensure all categories are included
     value_counts = data2020['age_cat'].value_counts().reindex(choices)
 
     return value_counts
 
 
 def load_csv_file2():
-    # loading data
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    # Age chart from 2023
-    # taking the same numbers of rows from 2023 to make data comparable
-
-    num_rows = 64441
-    data23_limited = data2023.head(num_rows)
-
     age_replacements = {
         'Under 18 years old': '18 and less',
         '18-24 years old': '18-24',
@@ -137,7 +126,6 @@ def generate_chart_data1(value_counts):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic1 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic1
@@ -161,7 +149,6 @@ def generate_chart_data2(grouped_data23_lim):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -169,13 +156,12 @@ def generate_chart_data2(grouped_data23_lim):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic2 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic2
 
 
-def generate_combined_age_chart(data2020, data2023):
+def generate_combined_age_chart(data2020, data23_limited):
     fig, ax = plt.subplots(figsize=(10, 5))
 
     # Bar width and positions
@@ -185,7 +171,7 @@ def generate_combined_age_chart(data2020, data2023):
     # Bars for 2020
     bars_2020 = ax.bar(index, data2020.values, bar_width, label='2020', color='skyblue')
     # Bars for 2023
-    bars_2023 = ax.bar(index + bar_width, data2023.values, bar_width, label='2023', color='#4f6d7a')
+    bars_2023 = ax.bar(index + bar_width, data23_limited.values, bar_width, label='2023', color='#4f6d7a')
 
     # Adding the data labels on top of the bars
     for bar in bars_2020:
@@ -196,18 +182,15 @@ def generate_combined_age_chart(data2020, data2023):
         yval = bar.get_height()
         ax.text(bar.get_x() + bar.get_width() / 2, yval + 1, int(yval), ha='center', va='bottom', color='black')
 
-    # Set chart properties
     ax.set_xlabel('Age Group')
     ax.set_ylabel('Number of Respondents')
     ax.set_xticks(index + bar_width / 2)
     ax.set_xticklabels(data2020.index, rotation=90)
     ax.legend()
 
-    # Hide the top and right spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
-    # Save the combined plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -215,15 +198,14 @@ def generate_combined_age_chart(data2020, data2023):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     combined_chart = base64.b64encode(image_png).decode('utf-8')
 
     return combined_chart
 
 
 def age_compared(request):
-    data1 = load_csv_file1()  # This gets value_counts
-    data2 = load_csv_file2()  # This gets grouped_data23_limited
+    data1 = load_csv_file1()
+    data2 = load_csv_file2()
     combined_chart = generate_combined_age_chart(data1, data2)
 
     return render(request, 'survey/age_compared.html', {'combined_chart': combined_chart})
@@ -241,8 +223,6 @@ def main_b_results(request):
 
 
 def load_csv_file3():
-    # loading data
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
     data2020['MainBranch'].fillna('None of these', inplace=True)
     counts_2020 = data2020['MainBranch'].value_counts()
 
@@ -265,7 +245,6 @@ def generate_chart_data3(counts_2020):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -273,18 +252,13 @@ def generate_chart_data3(counts_2020):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic3 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic3
 
 
 def load_csv_file4():
-    # loading data
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-    num_rows = 64441
-    data2023_short = data2023.head(num_rows)
-    counts_2023 = data2023_short['MainBranch'].value_counts()
+    counts_2023 = data23_limited['MainBranch'].value_counts()
 
     return counts_2023
 
@@ -327,8 +301,6 @@ def level_of_education(request):
 
 
 def load_csv_file5():
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     data2020['EdLevel'].replace('Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)',
                                 'Secondary school', inplace=True)
     data2020['EdLevel'].replace('Associate degree (A.A., A.S., etc.)',
@@ -378,22 +350,18 @@ def generate_chart_data5(ed_level_2020):
 
 
 def load_csv_file6():
-    # loading data
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-    num_rows = 64441
-    data2023_short = data2023.head(num_rows)
 
-    data2023_short['EdLevel'].replace(
+    data23_limited['EdLevel'].replace(
         'Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)',
         'Secondary school', inplace=True)
-    data2023_short['EdLevel'].replace('Associate degree (A.A., A.S., etc.)', 'Associate degree', inplace=True)
-    data2023_short['EdLevel'].replace('Bachelor’s degree (B.A., B.S., B.Eng., etc.)', 'Bachelor’s degree', inplace=True)
-    data2023_short['EdLevel'].replace('Master’s degree (M.A., M.S., M.Eng., MBA, etc.)', 'Master’s degree',
+    data23_limited['EdLevel'].replace('Associate degree (A.A., A.S., etc.)', 'Associate degree', inplace=True)
+    data23_limited['EdLevel'].replace('Bachelor’s degree (B.A., B.S., B.Eng., etc.)', 'Bachelor’s degree', inplace=True)
+    data23_limited['EdLevel'].replace('Master’s degree (M.A., M.S., M.Eng., MBA, etc.)', 'Master’s degree',
                                       inplace=True)
-    data2023_short['EdLevel'].replace('Professional degree (JD, MD, Ph.D, Ed.D, etc.)', 'Professional degree',
+    data23_limited['EdLevel'].replace('Professional degree (JD, MD, Ph.D, Ed.D, etc.)', 'Professional degree',
                                       inplace=True)
 
-    counts_bars_edu_23 = data2023_short['EdLevel'].value_counts()
+    counts_bars_edu_23 = data23_limited['EdLevel'].value_counts()
 
     return counts_bars_edu_23
 
@@ -443,8 +411,6 @@ def lang_worked_with_20(request):
 
 
 def load_csv_file7():
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     df_expanded = data2020['LanguageWorkedWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
@@ -497,9 +463,6 @@ def generate_chart_data7(value_counts_df):
 
 
 def load_csv_file8():
-    # loading data
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     df_expanded = data2020['LanguageDesireNextYear'].str.split(';', expand=True)
 
     # Melt the expanded DataFrame to long format
@@ -564,8 +527,6 @@ def tree_map_20(request):
 
 
 def load_csv_file9():
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     df_expanded = data2020['LanguageWorkedWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
@@ -609,8 +570,6 @@ def generate_chart_data9(value_percentages_df):
 
 
 def load_csv_file10():
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     df_expanded = data2020['LanguageDesireNextYear'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
@@ -665,11 +624,6 @@ def lang_worked_with_23(request):
 
 
 def load_csv_file11():
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    num_rows = 64441
-    data23_limited = data2023.head(num_rows)
-
     df_expanded = data23_limited['LanguageHaveWorkedWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
@@ -723,11 +677,6 @@ def generate_chart_data11(value_counts_df):
 
 
 def load_csv_file12():
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    num_rows = 64441
-    data23_limited = data2023.head(num_rows)
-
     df_expanded = data23_limited['LanguageWantToWorkWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
@@ -791,9 +740,7 @@ def tree_map_23(request):
 
 
 def load_csv_file13():
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    df_expanded = data2023['LanguageHaveWorkedWith'].str.split(';', expand=True)
+    df_expanded = data23_limited['LanguageHaveWorkedWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
@@ -848,9 +795,7 @@ def generate_chart_data13(value_percentages_df):
 
 
 def load_csv_file14():
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    df_expanded = data2023['LanguageWantToWorkWith'].str.split(';', expand=True)
+    df_expanded = data23_limited['LanguageWantToWorkWith'].str.split(';', expand=True)
 
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
@@ -915,8 +860,6 @@ def current_job(request):
 
 
 def load_csv_file15():
-    data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
-
     data2020['PrimaryDevType'] = data2020['DevType'].apply(lambda x: x.split(';')[0] if pd.notna(x) else x)
 
     value_counts_lang = data2020['PrimaryDevType'].value_counts()
@@ -972,10 +915,6 @@ def generate_chart_data15(value_counts_df_20):
 
 
 def load_csv_file16():
-    data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
-
-    num_rows = 64441
-    data23_limited = data2023.head(num_rows)
     counts_dev_23 = data23_limited['DevType'].value_counts()
 
     return counts_dev_23
