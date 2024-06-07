@@ -76,6 +76,7 @@ def load_csv_file1():
 def load_csv_file2():
     # loading data
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
+
     # Age chart from 2023
     # taking the same numbers of rows from 2023 to make data comparable
 
@@ -302,7 +303,6 @@ def generate_chart_data4(counts_2023):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -310,7 +310,6 @@ def generate_chart_data4(counts_2023):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic4 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic4
@@ -328,7 +327,6 @@ def level_of_education(request):
 
 
 def load_csv_file5():
-    # loading data
     data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
 
     data2020['EdLevel'].replace('Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)',
@@ -367,7 +365,6 @@ def generate_chart_data5(ed_level_2020):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -375,7 +372,6 @@ def generate_chart_data5(ed_level_2020):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic5 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic5
@@ -417,7 +413,6 @@ def generate_chart_data6(counts_bars_edu_23):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -448,18 +443,14 @@ def lang_worked_with_20(request):
 
 
 def load_csv_file7():
-    # loading data
     data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
 
     df_expanded = data2020['LanguageWorkedWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts_lang = df_long['value'].value_counts()
 
-    # Convert to DataFrame for easier plotting
     value_counts_df = value_counts_lang.reset_index()
     value_counts_df.columns = ['value', 'count']
 
@@ -493,7 +484,6 @@ def generate_chart_data7(value_counts_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -501,7 +491,6 @@ def generate_chart_data7(value_counts_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic7 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic7
@@ -553,7 +542,6 @@ def generate_chart_data8(value_counts_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -561,7 +549,6 @@ def generate_chart_data8(value_counts_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic8 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic8
@@ -577,22 +564,17 @@ def tree_map_20(request):
 
 
 def load_csv_file9():
-    # loading data
     data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
 
     df_expanded = data2020['LanguageWorkedWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts = df_long['value'].value_counts()
 
-    # Calculate percentages
     total_count = value_counts.sum()
     value_percentages = (value_counts / total_count) * 100
 
-    # Filter to include only values above 1%
     value_percentages_df = value_percentages[value_percentages > 1]
 
     return value_percentages_df
@@ -614,7 +596,6 @@ def generate_chart_data9(value_percentages_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -622,29 +603,23 @@ def generate_chart_data9(value_percentages_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic9 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic9
 
 
 def load_csv_file10():
-    # loading data
     data2020 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2020/survey_results_public.csv")
 
     df_expanded = data2020['LanguageDesireNextYear'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts = df_long['value'].value_counts()
 
-    # Calculate percentages
     total_count = value_counts.sum()
     value_percentages = (value_counts / total_count) * 100
 
-    # Filter to include only values above 1%
     value_percentages_df = value_percentages[value_percentages > 1]
 
     return value_percentages_df
@@ -666,7 +641,6 @@ def generate_chart_data10(value_percentages_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -674,7 +648,6 @@ def generate_chart_data10(value_percentages_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic10 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic10
@@ -692,7 +665,6 @@ def lang_worked_with_23(request):
 
 
 def load_csv_file11():
-    # loading data
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
 
     num_rows = 64441
@@ -700,13 +672,10 @@ def load_csv_file11():
 
     df_expanded = data23_limited['LanguageHaveWorkedWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts_lang = df_long['value'].value_counts()
 
-    # Convert to DataFrame for easier plotting
     value_counts_df = value_counts_lang.reset_index()
     value_counts_df.columns = ['value', 'count']
     value_counts_df = value_counts_df.sort_values(by='count', ascending=False)
@@ -741,7 +710,6 @@ def generate_chart_data11(value_counts_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -749,14 +717,12 @@ def generate_chart_data11(value_counts_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic11 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic11
 
 
 def load_csv_file12():
-    # loading data
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
 
     num_rows = 64441
@@ -764,13 +730,10 @@ def load_csv_file12():
 
     df_expanded = data23_limited['LanguageWantToWorkWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts_lang = df_long['value'].value_counts()
 
-    # Convert to DataFrame for easier plotting
     value_counts_df = value_counts_lang.reset_index()
     value_counts_df.columns = ['value', 'count']
     value_counts_df = value_counts_df.sort_values(by='count', ascending=False)
@@ -805,7 +768,6 @@ def generate_chart_data12(value_counts_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -813,7 +775,6 @@ def generate_chart_data12(value_counts_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic12 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic12
@@ -830,22 +791,17 @@ def tree_map_23(request):
 
 
 def load_csv_file13():
-    # loading data
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
 
     df_expanded = data2023['LanguageHaveWorkedWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts = df_long['value'].value_counts()
 
-    # Calculate percentages
     total_count = value_counts.sum()
     value_percentages = (value_counts / total_count) * 100
 
-    # Filter to include only values above 1%
     value_percentages_df = value_percentages[value_percentages > 1]
 
     return value_percentages_df
@@ -879,7 +835,6 @@ def generate_chart_data13(value_percentages_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -887,29 +842,23 @@ def generate_chart_data13(value_percentages_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic13 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic13
 
 
 def load_csv_file14():
-    # loading data
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
 
     df_expanded = data2023['LanguageWantToWorkWith'].str.split(';', expand=True)
 
-    # Melt the expanded DataFrame to long format
     df_long = df_expanded.melt(var_name='variable', value_name='value').dropna()
 
-    # Count the occurrences of each value
     value_counts = df_long['value'].value_counts()
 
-    # Calculate percentages
     total_count = value_counts.sum()
     value_percentages = (value_counts / total_count) * 100
 
-    # Filter to include only values above 1%
     value_percentages_df = value_percentages[value_percentages > 1]
 
     return value_percentages_df
@@ -942,7 +891,6 @@ def generate_chart_data14(value_percentages_df):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -950,7 +898,6 @@ def generate_chart_data14(value_percentages_df):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic14 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic14
@@ -972,10 +919,8 @@ def load_csv_file15():
 
     data2020['PrimaryDevType'] = data2020['DevType'].apply(lambda x: x.split(';')[0] if pd.notna(x) else x)
 
-    # Count the occurrences of each value
     value_counts_lang = data2020['PrimaryDevType'].value_counts()
 
-    # Convert to DataFrame for easier plotting
     value_counts_df_20 = value_counts_lang.reset_index()
     value_counts_df_20.columns = ['value', 'count']
 
@@ -1005,7 +950,7 @@ def generate_chart_data15(value_counts_df_20):
         )
 
     # Adjust plot margins to reduce space between the x-axis and the first y-axis value
-    plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.1)  # Adjust bottom as needed
+    plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.1)
 
     plt.xlabel('Number of respondents')
     plt.title('Describe your current job in 2020')
@@ -1014,7 +959,6 @@ def generate_chart_data15(value_counts_df_20):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -1022,14 +966,12 @@ def generate_chart_data15(value_counts_df_20):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic15 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic15
 
 
 def load_csv_file16():
-
     data2023 = pd.read_csv("C:/SURVEY_ANALYSIS/DATA/stack-overflow-developer-survey-2023/survey_results_public.csv")
 
     num_rows = 64441
@@ -1063,7 +1005,6 @@ def generate_chart_data16(counts_dev_23):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
-    # Save the plot to a BytesIO object
     buffer = BytesIO()
     plt.savefig(buffer, format='png', bbox_inches='tight')
     buffer.seek(0)
@@ -1071,7 +1012,6 @@ def generate_chart_data16(counts_dev_23):
     buffer.close()
     plt.close()
 
-    # Encode the image to base64
     graphic16 = base64.b64encode(image_png).decode('utf-8')
 
     return graphic16
