@@ -1,0 +1,23 @@
+{% extends "survey/base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <section class="main-section">
+        <h1>Survey of software developers developed by Stack Overflow in 2020 and 2023</h1>
+    </section>
+        <div class="list-container">
+            <p>My goal was to present the most interesting issues from the survey and compare them.</p>
+            <ol>
+                <li><a href="{% url 'age_results' %}">Age</a></li>
+                <li><a href="{% url 'main_b_results' %}">Main Branch</a></li>
+                <li><a href="{% url 'level_of_edu' %}">Level of education</a></li>
+                <li><a href="{% url 'lang_worked_with_20' %}">Language to have worked with in 2020</a></li>
+                <li><a href="{% url 'lang_worked_with_23' %}">Language to have worked with in 2023</a></li>
+                <li><a href="{% url 'current_job' %}">Current job</a></li>
+            </ol>
+        </div>
+        <div class="container">
+            <p>Click <a href="{% url 'summary' %}"> here</a> if You want to see the summary</p>
+        </div>
+{% endblock %}

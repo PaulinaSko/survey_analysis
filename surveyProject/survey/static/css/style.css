@@ -1,0 +1,203 @@
+/* styles.css */
+
+/* Reset CSS */
+
+
+html {
+
+    font-size: 100%;
+    scroll-behavior: smooth;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+
+header {
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1920px;
+}
+
+header.survey-header .header-content {
+    justify-content: flex-start; /* Left-aligned for survey-header */
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin-left: 15px; /* Adjust the space between each link */
+}
+
+nav a:first-child {
+    margin-left: 0; /* Remove left margin for the first link */
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+.main-section {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+header ul {
+    list-style-type: none; /* Remove default list styling */
+    display: flex;
+    padding: 0;
+    margin-top: 10px;
+}
+
+header ul li {
+    margin: 0 10px;
+    line-height: 1.6;
+}
+
+.list-container {
+    width: 80%;
+    max-width: 1920px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+.list-container p {
+    margin-bottom: 10px;
+}
+
+.list-container ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+.list-container ol li {
+    margin-bottom: 10px;
+}
+
+.logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content {
+    width: 100%;
+    max-width: 1920px;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 1.8;
+}
+
+p {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+ol li {
+    margin-bottom: 5px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.single-chart-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the single chart */
+    align-items: center; /* Vertically center the single chart */
+
+}
+
+
+.chart {
+    flex: 1;
+    margin: 10px;
+    text-align: center; /* Center the content horizontally */
+    padding: 20px;
+    min-width: 300px;
+    max-width: 175%; /* Set maximum width to 200% */
+}
+
+.chart img {
+    width: 100%;
+    height: auto;
+}
+
+footer {
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 5px 0; /* Reduced padding */
+    text-align: center;
+    font-size: 12px; /* Smaller font size */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+footer p {
+    font-size: 12px; /* Smaller font size for <p> elements in footer */
+    margin: 5px 0; /* Adjust margin for footer paragraphs if needed */
+    bottom: 0;
+    z-index: 1000;
+}
+

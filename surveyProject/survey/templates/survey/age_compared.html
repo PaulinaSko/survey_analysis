@@ -1,0 +1,16 @@
+{% extends "survey/base.html" %}
+
+{% block title %}Age Comparison{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <p>Number of respondents by age group for 2020 and 2023</p>
+        <div class="container">
+            <div class="single-chart-container">
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ combined_chart }}" alt="Age Comparison Chart">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "survey/base.html" %}
+
+{% block title %}Survey results{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <p>Fifth question - Current job</p>
+        <div class="container">
+            <div class="chart-container">
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart15 }}" alt="Chart 15">
+                </div>
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart16 }}" alt="Chart 16">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

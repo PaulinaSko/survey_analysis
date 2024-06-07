@@ -1,0 +1,20 @@
+{% extends "survey/base.html" %}
+
+{% block title %}Survey results{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <p>Fourth question - Language to have worked with in 2023 and language declared to learn in the following year</p>
+        <div class="container">
+            <div class="chart-container">
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart11 }}" alt="Chart 11">
+                </div>
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart12 }}" alt="Chart 12">
+                </div>
+            </div>
+        </div>
+        <p>To see the treemap chart click <a href="{% url 'tree_map_23' %}"> here</a></p>
+    </section>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    {% load static %}
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <a href="{% url 'about' %}">Home</a>
+            </div>
+             <nav>
+                <a href="{% url 'about' %}">Home</a>
+                <a href="{% url 'tech' %}">Tech</a>
+                <a href="{% url 'license' %}">License</a>
+             </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>Made by Paulina Skowrońska - WSB Merito Gdynia - Big Data. Data Engineering - June 2024</p>
+    </footer>
+</body>
+
+</html>

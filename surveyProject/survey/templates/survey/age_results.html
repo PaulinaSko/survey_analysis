@@ -1,0 +1,20 @@
+{% extends "survey/base.html" %}
+
+{% block title %}Survey results{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <p>First question - Age of the respondents</p>
+        <div class="container">
+            <div class="chart-container">
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart1 }}" alt="Chart 1">
+                </div>
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ chart2 }}" alt="Chart 2">
+                </div>
+            </div>
+        </div>
+        <p>To see the comparison click <a href="{% url 'age_compared' %}"> here</a></p>
+    </section>
+{% endblock %}
